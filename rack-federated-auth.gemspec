@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "lib/rack-federated-auth.rb",
+    "rack-federated-auth.gemspec",
     "test/helper.rb",
     "test/test_rack-federated-auth.rb"
   ]
