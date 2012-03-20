@@ -1,3 +1,5 @@
+.rbenv*
+
 # rcov generated
 coverage
 coverage.data
