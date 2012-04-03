@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "rack-federated-auth"
-  s.version = "0.2.0"
+  s.version = "0.2.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ryan Michael"]
-  s.date = "2012-03-20"
+  s.date = "2012-04-03"
   s.description = "Provides a simple authentication middleware to lock down Rack-based apps"
   s.email = "kerinin@gmail.com"
   s.extra_rdoc_files = [
