@@ -10,7 +10,7 @@ Install
 
 Add it to your gemfile
 
-    gem "rack_federated_auth"
+    gem "rack-federated-auth"
 
 Use it in your Rack application
 
