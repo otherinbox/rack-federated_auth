@@ -30,7 +30,7 @@ end
 ```
 
 The gem handles forwarding users to the authentication URL if they haven't authenticated,
-recieving the authentication callback, and setting the user's session so authentication isn't
+receiving the authentication callback, and setting the user's session so authentication isn't
 required before each page request. 
 
 Most federated login stragegies for OmniAuth should work - if you want to use something other than google-oauth2,
