@@ -12,7 +12,7 @@ Add it to your gemfile
 
     gem "rack-federated-auth"
 
-Use it in your Rack application
+To Use it in your Rack application
 
 ``` ruby
 class MyApp < Sinatra::Base
@@ -28,6 +28,21 @@ class MyApp < Sinatra::Base
   end
 end
 ```
+
+To Use it in your Rail application, add the following to your config/application.rb
+
+``` ruby
+config.middleware.insert_before(ActionDispatch::Static, Rack::Session::Cookie, :secret => ENV['SESSION_SECRET'])
+
+config.middleware.insert_after(Rack::Session::Cookie, OmniAuth::Builder) do
+  provider :open_id, :store => OpenID::Store::Filesystem.new('/tmp')
+end
+
+config.middleware.insert_after(OmniAuth::Builder, RackFederatedAuth::Authentication) do |config|
+  config.email_filter = /yourdomain\.com$/
+end
+```
+
 
 The gem handles forwarding users to the authentication URL if they haven't authenticated,
 receiving the authentication callback, and setting the user's session so authentication isn't
