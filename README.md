@@ -29,7 +29,7 @@ class MyApp < Sinatra::Base
 end
 ```
 
-To Use it in your Rail application, add the following to your config/application.rb
+To Use it in your Rails application, add the following to your config/application.rb
 
 ``` ruby
 config.middleware.insert_before(ActionDispatch::Static, Rack::Session::Cookie, :secret => ENV['SESSION_SECRET'])
