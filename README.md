@@ -31,7 +31,12 @@ end
 
 To Use it in your Rails application, add the following to your config/application.rb
 
+This example uses the google-openid provider, which also requires the 'omniauth-openid' gem 
+
 ``` ruby
+require 'omniauth-openid'
+require 'openid/store/filesystem'
+
 config.middleware.insert_before(ActionDispatch::Static, Rack::Session::Cookie, :secret => ENV['SESSION_SECRET'])
 
 config.middleware.insert_after(Rack::Session::Cookie, OmniAuth::Builder) do
@@ -40,6 +45,7 @@ end
 
 config.middleware.insert_after(OmniAuth::Builder, RackFederatedAuth::Authentication) do |config|
   config.email_filter = /yourdomain\.com$/
+  config.auth_url = "/auth/open_id?openid_url=www.google.com/accounts/o8/id"
 end
 ```
 
