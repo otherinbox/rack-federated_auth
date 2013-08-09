@@ -52,6 +52,22 @@ module RackFederatedAuth
     # should normalize most of that stuff.
     #
     get "/auth/:service/callback" do
+      authenticate!
+    end
+    put "/auth/:service/callback" do
+      authenticate!
+    end
+    post "/auth/:service/callback" do
+      authenticate!
+    end
+
+    get '/auth/failure' do
+      "<html><body>#{@failure_message}</body></html>"
+    end
+
+    private
+    
+    def authenticate!
       puts "New #{params[:service]} auth: #{request.env['omniauth.auth']}"
       begin
         if request.env['omniauth.auth']['info']['email'].match(@email_filter)
@@ -69,12 +85,6 @@ module RackFederatedAuth
       end
     end
 
-    get '/auth/failure' do
-      "<html><body>#{@failure_message}</body></html>"
-    end
-
-    private
-    
     def authenticated?
       !session[@auth_scope].nil? and session[@auth_scope]
     end
