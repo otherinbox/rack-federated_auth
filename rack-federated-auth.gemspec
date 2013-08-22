@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |gem|
   gem.name          = "rack-federated-auth"
-  gem.version       = "0.2.2"
+  gem.version       = "0.3.0"
   gem.authors       = ["Ryan Michael"]
   gem.email         = ["kerinin@gmail.com"]
   gem.description   = "Provides a simple authentication middleware to lock down Rack-based apps"
