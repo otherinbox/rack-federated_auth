@@ -10,6 +10,7 @@ module RackFederatedAuth
     attr_accessor :auth_url
     attr_accessor :success_url
     attr_accessor :failure_url
+    attr_accessor :public_path_regexes
 
     # Set up federated authentication
     #
@@ -25,11 +26,12 @@ module RackFederatedAuth
       @auth_scope = "authorized"
       @email_filter = /.*/
       @failure_message = "Authentication failed.  Click <a href='#{@auth_url}'>here</a> to try again"
-      
+
       @auth_prefix = "/auth"
       @auth_url = nil
       @success_url = '/'
       @failure_url = nil
+      @public_path_regexes = []
 
       yield self if block_given?
 
@@ -66,13 +68,13 @@ module RackFederatedAuth
     end
 
     private
-    
+
     def authenticate!
       puts "New #{params[:service]} auth: #{request.env['omniauth.auth']}"
       begin
         if request.env['omniauth.auth']['info']['email'].match(@email_filter)
           puts "email matches filter, redirecting to #{@success_url}"
-          session[@auth_scope] = true 
+          session[@auth_scope] = true
           redirect @success_url
         else
           puts "email doesn't match filter, redirecting to #{@failure_url}"
@@ -86,7 +88,7 @@ module RackFederatedAuth
     end
 
     def authenticated?
-      !session[@auth_scope].nil? and session[@auth_scope]
+      public_path_regexes.any? { |regex| request.path =~ regex } || (!session[@auth_scope].nil? && session[@auth_scope])
     end
   end
 end
