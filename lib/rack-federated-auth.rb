@@ -75,6 +75,7 @@ module RackFederatedAuth
         if request.env['omniauth.auth']['info']['email'].match(@email_filter)
           puts "email matches filter, redirecting to #{@success_url}"
           session[@auth_scope] = true
+          session['auth_email'] = request.env['omniauth.auth']['info']['email']
           redirect @success_url
         else
           puts "email doesn't match filter, redirecting to #{@failure_url}"
@@ -82,7 +83,8 @@ module RackFederatedAuth
         end
       rescue
         puts "Auth failure :("
-        session['authorized'] = false
+        session[@auth_scope] = false
+        session.delete('auth_email')
         redirect @failure_url
       end
     end
