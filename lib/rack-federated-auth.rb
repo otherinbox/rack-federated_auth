@@ -74,6 +74,7 @@ module RackFederatedAuth
       begin
         if request.env['omniauth.auth']['info']['email'].match(@email_filter)
           puts "email matches filter, redirecting to #{@success_url}"
+          puts "oauth-test fed-auth session: #{request.session_options[:id]}"
           session[@auth_scope] = true
           session['auth_email'] = request.env['omniauth.auth']['info']['email']
           redirect @success_url
