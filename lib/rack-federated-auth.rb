@@ -70,20 +70,20 @@ module RackFederatedAuth
     private
 
     def authenticate!
-      puts "New #{params[:service]} auth: #{request.env['omniauth.auth']}"
+      #puts "New #{params[:service]} auth: #{request.env['omniauth.auth']}"
       begin
         if request.env['omniauth.auth']['info']['email'].match(@email_filter)
-          puts "email matches filter, redirecting to #{@success_url}"
-          puts "oauth-test fed-auth session: #{request.session_options[:id]}"
+          #puts "email matches filter, redirecting to #{@success_url}"
+          puts "session_id auth: #{session[:session_id]}, email: #{request.env['omniauth.auth']['info']['email']}"
           session[@auth_scope] = true
           session['auth_email'] = request.env['omniauth.auth']['info']['email']
           redirect @success_url
         else
-          puts "email doesn't match filter, redirecting to #{@failure_url}"
+          #puts "email doesn't match filter, redirecting to #{@failure_url}"
           redirect @failure_url
         end
       rescue
-        puts "Auth failure :("
+        #puts "Auth failure :("
         session[@auth_scope] = false
         session.delete('auth_email')
         redirect @failure_url
