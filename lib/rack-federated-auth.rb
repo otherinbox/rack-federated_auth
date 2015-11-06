@@ -70,15 +70,12 @@ module RackFederatedAuth
     private
 
     def authenticate!
-      puts "New #{params[:service]} auth: #{request.env['omniauth.auth']}"
       begin
         if request.env['omniauth.auth']['info']['email'].match(@email_filter)
-          puts "email matches filter, redirecting to #{@success_url}"
           session[@auth_scope] = true
           session['auth_email'] = request.env['omniauth.auth']['info']['email']
           redirect @success_url
         else
-          puts "email doesn't match filter, redirecting to #{@failure_url}"
           redirect @failure_url
         end
       rescue
