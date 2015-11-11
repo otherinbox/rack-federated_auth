@@ -2,8 +2,6 @@ require 'sinatra/base'
 
 module RackFederatedAuth
   class Authentication < Sinatra::Base
-    skip_before_filter :verify_authenticity_token
-
     attr_accessor :auth_scope
     attr_accessor :email_filter
     attr_accessor :failure_message
@@ -73,6 +71,7 @@ module RackFederatedAuth
 
     def authenticate!
       puts "New #{params[:service]} auth: #{request.env['omniauth.auth']['info']['email']}"
+      puts "Session ID: #{session.id}"
       begin
         if request.env['omniauth.auth']['info']['email'].match(@email_filter)
           puts "email matches filter, redirecting to #{@success_url}"
